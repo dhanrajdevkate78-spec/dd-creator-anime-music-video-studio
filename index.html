@@ -89,25 +89,63 @@ audioFile.addEventListener("change", function(){
  document.getElementById("fileName").textContent="Selected: "+file.name;
 });
 
+
 function generate(){
  const title=document.getElementById("songTitle").value.trim()||"Untitled Song";
  const format=document.getElementById("format").value;
  const style=document.getElementById("style").value;
  const lyrics=document.getElementById("lyrics").value.trim();
+
  if(!lyrics){
   alert("Please enter your song lyrics first.");
   return;
  }
+
  const lines=lyrics.split("\n").map(x=>x.trim()).filter(Boolean);
- storyboard="DD CREATOR ANIME MUSIC STUDIO\n";
- storyboard+="Song: "+title+"\nFormat: "+format+"\nStyle: "+style+"\n\n";
+ storyboard="DD CREATOR PROFESSIONAL ANIME STORYBOARD\n";
+ storyboard+="Song: "+title+"\n";
+ storyboard+="Visual Style: "+style+"\n";
+ storyboard+="Video Format: "+format+"\n\n";
+
  lines.forEach((line,i)=>{
-  storyboard+="SCENE "+(i+1)+"\n";
-  storyboard+="Lyric: "+line+"\n";
-  storyboard+="Visual Prompt: Create a "+style.toLowerCase()+" scene inspired by this lyric: \""+line+"\". Beautiful anime cinematography, expressive characters, detailed background, atmospheric lighting, smooth visual composition, "+format+" aspect ratio, consistent character design.\n\n";
+  const start=i*5;
+  const end=start+5;
+  const sceneNumber=String(i+1).padStart(2,"0");
+
+  const camera=[
+   "wide cinematic establishing shot",
+   "emotional close-up shot",
+   "slow cinematic tracking shot",
+   "over-the-shoulder composition",
+   "dramatic low-angle shot"
+  ][i%5];
+
+  const visualDetails=[
+   "beautiful atmospheric environment with detailed scenery",
+   "expressive anime character with emotional eyes",
+   "soft wind movement and flowing hair",
+   "cinematic depth of field and atmospheric lighting",
+   "beautiful environmental details and dramatic composition"
+  ][i%5];
+
+  storyboard+="================================\n";
+  storyboard+="SCENE "+sceneNumber+"\n";
+  storyboard+="TIME: "+start+"s - "+end+"s (5 seconds)\n";
+  storyboard+="LYRIC: "+line+"\n\n";
+
+  storyboard+="IMAGE GENERATION PROMPT:\n";
+  storyboard+="Create a high-quality "+style+" anime illustration inspired by this lyric: "+line+". ";
+  storyboard+="Use a "+camera+", "+visualDetails+". ";
+  storyboard+="Maintain consistent character appearance, clothing, hairstyle and visual identity across all scenes. ";
+  storyboard+="Professional anime artwork, cinematic composition, detailed background, beautiful lighting, rich atmosphere, high visual quality, "+format+" aspect ratio.\n\n";
+
+  storyboard+="VIDEO ANIMATION PROMPT:\n";
+  storyboard+="Animate this scene for 5 seconds. Add gentle character movement, natural blinking, subtle camera motion, flowing environmental elements and smooth cinematic transitions. Keep character design consistent and match the emotional mood of the lyric.\n\n";
  });
+
  document.getElementById("output").textContent=storyboard;
 }
+
 
 function downloadStory(){
  if(!storyboard){
