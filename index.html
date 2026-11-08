@@ -1,366 +1,127 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>DD Creator Anime Music Studio</title>
-
 <style>
-* {
-  box-sizing: border-box;
-}
-
-body {
-  margin: 0;
-  background: #090b16;
-  color: white;
-  font-family: Arial, sans-serif;
-}
-
-header {
-  padding: 22px;
-  text-align: center;
-  background: linear-gradient(135deg,#171b38,#6c24a8);
-}
-
-header h1 {
-  font-size: 25px;
-  margin: 5px;
-}
-
-header p {
-  color: #ddd;
-  font-size: 13px;
-}
-
-.container {
-  max-width: 850px;
-  margin: auto;
-  padding: 16px;
-}
-
-.panel {
-  background: #171a2b;
-  padding: 18px;
-  border-radius: 14px;
-  margin: 15px 0;
-  border: 1px solid #303550;
-}
-
-h2 {
-  font-size: 18px;
-  color: #c69aff;
-}
-
-input, textarea, select {
-  width: 100%;
-  padding: 13px;
-  margin: 9px 0;
-  background: #0d1020;
-  color: white;
-  border: 1px solid #555b79;
-  border-radius: 8px;
-}
-
-textarea {
-  min-height: 130px;
-  resize: vertical;
-}
-
-button {
-  background: linear-gradient(135deg,#8b35e5,#4b63f2);
-  border: none;
-  color: white;
-  padding: 13px 18px;
-  border-radius: 9px;
-  font-weight: bold;
-  margin-top: 10px;
-  width: 100%;
-}
-
-button:active {
-  opacity: .8;
-}
-
-audio {
-  width: 100%;
-  margin-top: 12px;
-}
-
-.preview {
-  width: 100%;
-  aspect-ratio: 16/9;
-  background: linear-gradient(135deg,#171b38,#412064);
-  border-radius: 12px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  padding: 20px;
-  margin-top: 15px;
-  overflow: hidden;
-}
-
-.preview p {
-  font-size: 23px;
-  font-weight: bold;
-  text-shadow: 2px 2px 8px black;
-}
-
-.scene {
-  padding: 15px;
-  margin: 12px 0;
-  background: #22263c;
-  border-left: 4px solid #a45cff;
-  border-radius: 8px;
-  overflow-wrap: anywhere;
-}
-
-.small {
-  color: #aeb2c9;
-  font-size: 12px;
-}
-
-footer {
-  text-align: center;
-  padding: 25px;
-  color: #aaa;
-}
+*{box-sizing:border-box}
+body{margin:0;background:#090b14;color:#f5f5ff;font-family:Arial,sans-serif}
+header{padding:22px;background:linear-gradient(120deg,#291052,#101b3e);border-bottom:1px solid #393052}
+h1{margin:0;color:#c8a5ff;font-size:25px}
+header p{color:#c5bfd8;margin-bottom:0}
+main{max-width:850px;margin:auto;padding:18px}
+.card{background:#141827;border:1px solid #30364c;border-radius:15px;padding:18px;margin-bottom:16px}
+h2{font-size:18px;color:#d6b8ff;margin-top:0}
+label{display:block;margin:13px 0 7px;color:#d5d8e8}
+input,textarea,select{width:100%;padding:12px;background:#090e1b;color:white;border:1px solid #414963;border-radius:9px;font-size:15px}
+textarea{min-height:130px;resize:vertical}
+button{background:#8b5cf6;color:white;border:0;border-radius:9px;padding:12px 17px;font-size:15px;font-weight:bold;margin-top:12px;cursor:pointer}
+button.secondary{background:#303b58}
+button:disabled{opacity:.5}
+audio{width:100%;margin-top:12px}
+.output{white-space:pre-wrap;line-height:1.6;color:#e4dcff;background:#090e1b;padding:14px;border-radius:9px;margin-top:12px}
+.small{font-size:12px;color:#a9aec2;line-height:1.5}
+footer{text-align:center;padding:22px;color:#999bb1}
 </style>
 </head>
-
 <body>
-
 <header>
-<h1>DD CREATOR</h1>
-<p>ANIME MUSIC VIDEO STUDIO</p>
-<p>Created by DD_creator105</p>
+<h1>DD CREATOR 🎬</h1>
+<p>Anime Music Video Studio | Created by DD_creator105</p>
 </header>
+<main>
+<section class="card">
+<h2>🎵 01 — Music Upload</h2>
+<label>Upload your song</label>
+<input type="file" id="audioFile" accept="audio/*">
+<div id="fileName" class="small">No song selected</div>
+<audio id="player" controls hidden></audio>
+<p class="small">Audio preview is supported. Automatic AI audio analysis is not connected yet.</p>
+</section>
 
-<div class="container">
-
-<div class="panel">
-<h2>01. Upload Your Music</h2>
-
-<input type="file" id="music" accept="audio/*">
-
-<audio id="player" controls></audio>
-
-<p id="audioStatus" class="small">
-Upload your MP3 or M4A audio.
-</p>
-</div>
-
-<div class="panel">
-<h2>02. Song Information</h2>
-
-<input id="songTitle"
-placeholder="Enter your song title">
-
-<select id="language">
-<option>Hindi</option>
-<option>Marathi</option>
-<option>English</option>
+<section class="card">
+<h2>✨ 02 — Project Settings</h2>
+<label>Song title</label>
+<input id="songTitle" placeholder="Enter your song title">
+<label>Video format</label>
+<select id="format">
+<option value="16:9">16:9 — YouTube Video</option>
+<option value="9:16">9:16 — YouTube Shorts / Reels</option>
 </select>
-
-<select id="ratio">
-<option value="16:9">16:9 YouTube</option>
-<option value="9:16">9:16 Shorts / Reels</option>
+<label>Visual style</label>
+<select id="style">
+<option>Cinematic Anime</option>
+<option>Romantic Anime</option>
+<option>Emotional Anime</option>
+<option>Fantasy Anime</option>
+<option>Dark Anime</option>
+<option>Nature Anime</option>
 </select>
-</div>
+<label>Song lyrics</label>
+<textarea id="lyrics" placeholder="Paste your song lyrics here..."></textarea>
+<p class="small">For best results, put each lyric line on a separate line.</p>
+<button onclick="generate()">Generate Anime Storyboard</button>
+</section>
 
-<div class="panel">
-<h2>03. Enter Song Lyrics</h2>
-
-<textarea id="lyrics"
-placeholder="Paste your complete song lyrics here..."></textarea>
-
-<button onclick="generateScenes()">
-GENERATE ANIME STORYBOARD
-</button>
-</div>
-
-<div class="panel">
-<h2>04. Anime Video Preview</h2>
-
-<div class="preview" id="preview">
-<p id="previewText">
-Your Anime Lyrics Preview
-</p>
-</div>
-
-<button onclick="nextLyric()">
-NEXT LYRIC
-</button>
-
-<p class="small">
-Preview uses your lyrics. Anime artwork and
-final video rendering are separate steps.
-</p>
-</div>
-
-<div class="panel">
-<h2>05. Generated Scene Storyboard</h2>
-
-<div id="scenes">
-<p class="small">
-Your scene prompts will appear here.
-</p>
-</div>
-
-<button onclick="downloadStoryboard()">
-DOWNLOAD STORYBOARD
-</button>
-</div>
-
-</div>
-
-<footer>
-DD_creator105 © 2026
-<br>
-Anime Music Video Studio
-</footer>
+<section class="card">
+<h2>🎨 03 — Scene Storyboard</h2>
+<div id="output" class="output">Your anime scene prompts will appear here.</div>
+<button class="secondary" onclick="downloadStory()">Download Storyboard TXT</button>
+</section>
+</main>
+<footer>DD_creator105 © 2026 | DD Creator Anime Music Studio</footer>
 
 <script>
-let lyricLines = [];
-let currentLine = 0;
-let storyboard = [];
-
-const music = document.getElementById("music");
+let storyboard = "";
+const audioFile = document.getElementById("audioFile");
 const player = document.getElementById("player");
 
-music.addEventListener("change", function() {
-  const file = this.files[0];
-
-  if (!file) return;
-
-  player.src = URL.createObjectURL(file);
-
-  document.getElementById("audioStatus").textContent =
-    "Loaded: " + file.name;
+audioFile.addEventListener("change", function(){
+ const file=this.files[0];
+ if(!file)return;
+ if(player.dataset.url)URL.revokeObjectURL(player.dataset.url);
+ const url=URL.createObjectURL(file);
+ player.src=url;
+ player.dataset.url=url;
+ player.hidden=false;
+ document.getElementById("fileName").textContent="Selected: "+file.name;
 });
 
-function generateScenes() {
-  const lyrics = document.getElementById("lyrics").value;
-
-  lyricLines = lyrics.split("\n")
-    .map(line => line.trim())
-    .filter(line => line.length > 0);
-
-  if (lyricLines.length === 0) {
-    alert("Please enter your song lyrics first!");
-    return;
-  }
-
-  currentLine = 0;
-  storyboard = [];
-
-  const title =
-    document.getElementById("songTitle").value ||
-    "Untitled Song";
-
-  const language =
-    document.getElementById("language").value;
-
-  const ratio =
-    document.getElementById("ratio").value;
-
-  const output = document.getElementById("scenes");
-
-  output.innerHTML = "";
-
-  lyricLines.forEach((line, index) => {
-    const scene = {
-      number: index + 1,
-      lyric: line,
-      prompt:
-        "Cinematic anime music video scene, " +
-        "emotional visual storytelling inspired by: " +
-        line +
-        ". Beautiful anime environment, expressive " +
-        "characters, atmospheric lighting, " +
-        "detailed background, cinematic composition, " +
-        ratio + " aspect ratio."
-    };
-
-    storyboard.push(scene);
-
-    const card = document.createElement("div");
-    card.className = "scene";
-
-    const heading = document.createElement("b");
-    heading.textContent =
-      "Scene " + scene.number;
-
-    const lyric = document.createElement("p");
-    lyric.textContent = "Lyrics: " + scene.lyric;
-
-    const prompt = document.createElement("p");
-    prompt.className = "small";
-    prompt.textContent = "Visual Prompt: " + scene.prompt;
-
-    card.append(heading, lyric, prompt);
-    output.appendChild(card);
-  });
-
-  document.getElementById("previewText").textContent =
-    lyricLines[0];
-
-  alert(
-    "Storyboard created! Total scenes: " +
-    storyboard.length
-  );
+function generate(){
+ const title=document.getElementById("songTitle").value.trim()||"Untitled Song";
+ const format=document.getElementById("format").value;
+ const style=document.getElementById("style").value;
+ const lyrics=document.getElementById("lyrics").value.trim();
+ if(!lyrics){
+  alert("Please enter your song lyrics first.");
+  return;
+ }
+ const lines=lyrics.split("\n").map(x=>x.trim()).filter(Boolean);
+ storyboard="DD CREATOR ANIME MUSIC STUDIO\n";
+ storyboard+="Song: "+title+"\nFormat: "+format+"\nStyle: "+style+"\n\n";
+ lines.forEach((line,i)=>{
+  storyboard+="SCENE "+(i+1)+"\n";
+  storyboard+="Lyric: "+line+"\n";
+  storyboard+="Visual Prompt: Create a "+style.toLowerCase()+" scene inspired by this lyric: \""+line+"\". Beautiful anime cinematography, expressive characters, detailed background, atmospheric lighting, smooth visual composition, "+format+" aspect ratio, consistent character design.\n\n";
+ });
+ document.getElementById("output").textContent=storyboard;
 }
 
-function nextLyric() {
-  if (lyricLines.length === 0) {
-    alert("Generate your storyboard first!");
-    return;
-  }
-
-  currentLine =
-    (currentLine + 1) % lyricLines.length;
-
-  document.getElementById("previewText").textContent =
-    lyricLines[currentLine];
-}
-
-function downloadStoryboard() {
-  if (storyboard.length === 0) {
-    alert("Generate storyboard first!");
-    return;
-  }
-
-  const title =
-    document.getElementById("songTitle").value ||
-    "DD Creator Storyboard";
-
-  let content =
-    "DD CREATOR ANIME MUSIC VIDEO STUDIO\n" +
-    "Song: " + title + "\n\n";
-
-  storyboard.forEach(scene => {
-    content +=
-      "SCENE " + scene.number + "\n" +
-      "LYRICS: " + scene.lyric + "\n" +
-      "PROMPT: " + scene.prompt + "\n\n";
-  });
-
-  const blob = new Blob([content], {
-    type: "text/plain"
-  });
-
-  const url = URL.createObjectURL(blob);
-  const link = document.createElement("a");
-
-  link.href = url;
-  link.download = "DD_Creator_Storyboard.txt";
-  link.click();
-
-  URL.revokeObjectURL(url);
+function downloadStory(){
+ if(!storyboard){
+  alert("Generate your storyboard first.");
+  return;
+ }
+ const blob=new Blob([storyboard],{type:"text/plain"});
+ const url=URL.createObjectURL(blob);
+ const a=document.createElement("a");
+ a.href=url;
+ a.download="DD-Creator-Storyboard.txt";
+ a.click();
+ URL.revokeObjectURL(url);
 }
 </script>
-
 </body>
-  </html>
-  
+</html>
